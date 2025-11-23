@@ -1,0 +1,5 @@
+{
+  "name": "SpringVueForum-Mock",
+  "description": "A React-based simulation of a full-stack forum (originally requested as SpringBoot/Vue). Features functional mock authentication, posting, commenting, admin moderation, private messaging simulation, and Gemini-powered post generation.",
+  "requestFramePermissions": []
+}
