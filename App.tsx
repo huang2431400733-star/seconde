@@ -7,20 +7,21 @@ import { ForumPage } from './pages/ForumPage';
 import { PostDetailPage } from './pages/PostDetailPage';
 import { ProfilePage } from './pages/ProfilePage';
 import { ChatPage } from './pages/ChatPage';
+import { DashboardPage } from './pages/DashboardPage';
 
-// Mock Data Initialization
+// Mock Data Initialization (Translated)
 const INITIAL_POSTS: Post[] = [
   {
     id: '1',
     authorId: 'admin',
     authorName: 'AdminUser',
     authorAvatar: 'https://picsum.photos/seed/admin/50/50',
-    title: 'Welcome to the DevForum!',
-    content: 'This is a mock forum built with React to simulate a SpringBoot/Vue architecture. Feel free to test the features!',
+    title: '欢迎来到开发者社区!',
+    content: '这是一个模拟 SpringBoot/Vue 架构的 React 论坛系统。欢迎测试各项功能！管理员账号具有特殊权限。',
     likes: 120,
     views: 540,
-    collected: false,
-    liked: false,
+    collected: true,
+    liked: true,
     timestamp: Date.now() - 10000000,
     comments: [
       {
@@ -29,7 +30,7 @@ const INITIAL_POSTS: Post[] = [
         authorId: 'user2',
         authorName: 'JaneDoe',
         authorAvatar: 'https://picsum.photos/seed/jane/50/50',
-        content: 'Great system! Love the design.',
+        content: '系统做得很棒！UI设计很简洁。',
         timestamp: Date.now() - 5000000
       }
     ]
@@ -39,8 +40,8 @@ const INITIAL_POSTS: Post[] = [
     authorId: 'user2',
     authorName: 'JaneDoe',
     authorAvatar: 'https://picsum.photos/seed/jane/50/50',
-    title: 'How to center a div?',
-    content: 'I have been trying for 3 hours. Flexbox? Grid? Help!',
+    title: '如何让 Div 居中?',
+    content: '我已经试了3个小时了。Flexbox? Grid? 救命!',
     image: 'https://picsum.photos/seed/css/600/300',
     likes: 5,
     views: 42,
@@ -56,9 +57,9 @@ const INITIAL_CHATS: ChatSession[] = [
     id: 'chat1',
     partnerName: 'JaneDoe',
     partnerAvatar: 'https://picsum.photos/seed/jane/50/50',
-    lastMessage: 'Hey, did you solve that CSS issue?',
+    lastMessage: '嘿，你解决那个 CSS 问题了吗?',
     messages: [
-      { id: 'm1', senderId: 'user2', content: 'Hey, did you solve that CSS issue?', timestamp: Date.now() - 100000, isSelf: false }
+      { id: 'm1', senderId: 'user2', content: '嘿，你解决那个 CSS 问题了吗?', timestamp: Date.now() - 100000, isSelf: false }
     ]
   }
 ];
@@ -93,13 +94,19 @@ const App: React.FC = () => {
 
   return (
     <HashRouter>
-      <div className="min-h-screen bg-gray-50 flex flex-col">
+      <div className="min-h-screen bg-gray-50 flex flex-col font-sans">
         {user && <Navbar user={user} onLogout={handleLogout} />}
         <main className="flex-grow container mx-auto px-4 py-6 max-w-5xl">
           <Routes>
             <Route path="/login" element={<LoginPage onLogin={handleLogin} />} />
             
             <Route path="/" element={
+              <ProtectedRoute>
+                 <DashboardPage user={user!} />
+              </ProtectedRoute>
+            } />
+
+            <Route path="/forum" element={
               <ProtectedRoute>
                 <ForumPage user={user!} posts={posts} setPosts={setPosts} />
               </ProtectedRoute>
@@ -113,7 +120,7 @@ const App: React.FC = () => {
             
             <Route path="/profile" element={
               <ProtectedRoute>
-                <ProfilePage user={user!} onUpdateUser={handleLogin} />
+                <ProfilePage user={user!} onUpdateUser={handleLogin} posts={posts} />
               </ProtectedRoute>
             } />
             

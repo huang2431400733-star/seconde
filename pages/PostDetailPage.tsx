@@ -25,7 +25,7 @@ export const PostDetailPage: React.FC<PostDetailPageProps> = ({ user, posts, set
     if(found) setEditLikesValue(found.likes);
   }, [id, posts]);
 
-  if (!post) return <div className="p-8 text-center">Post not found</div>;
+  if (!post) return <div className="p-8 text-center">帖子不存在</div>;
 
   const handleLike = () => {
     const updatedPost = { ...post, liked: !post.liked, likes: post.liked ? post.likes - 1 : post.likes + 1 };
@@ -76,7 +76,7 @@ export const PostDetailPage: React.FC<PostDetailPageProps> = ({ user, posts, set
   return (
     <div className="max-w-3xl mx-auto">
       <button onClick={() => navigate(-1)} className="flex items-center text-gray-500 hover:text-indigo-600 mb-4 transition">
-        <ArrowLeft size={18} className="mr-1" /> Back to Feed
+        <ArrowLeft size={18} className="mr-1" /> 返回列表
       </button>
 
       {/* Post Content */}
@@ -104,6 +104,7 @@ export const PostDetailPage: React.FC<PostDetailPageProps> = ({ user, posts, set
                 <button 
                   onClick={handleLike}
                   className={`p-1 rounded-full transition ${post.liked ? 'text-red-500' : 'text-gray-400 hover:text-red-500'}`}
+                  title="点赞"
                 >
                   <ThumbsUp size={20} fill={post.liked ? "currentColor" : "none"} />
                 </button>
@@ -117,14 +118,14 @@ export const PostDetailPage: React.FC<PostDetailPageProps> = ({ user, posts, set
                         onChange={(e) => setEditLikesValue(Number(e.target.value))}
                         className="w-16 border rounded px-1 py-0.5 text-sm"
                      />
-                     <button onClick={handleAdminUpdateLikes} className="ml-1 text-green-600 text-xs font-bold">OK</button>
+                     <button onClick={handleAdminUpdateLikes} className="ml-1 text-green-600 text-xs font-bold">确定</button>
                   </div>
                 ) : (
                   <span className="mx-2 font-medium text-gray-700">{post.likes}</span>
                 )}
                 
                 {user.role === UserRole.ADMIN && !isEditingLikes && (
-                   <button onClick={() => setIsEditingLikes(true)} className="text-gray-300 hover:text-indigo-500">
+                   <button onClick={() => setIsEditingLikes(true)} className="text-gray-300 hover:text-indigo-500" title="管理员修改点赞">
                       <Edit size={12} />
                    </button>
                 )}
@@ -133,6 +134,7 @@ export const PostDetailPage: React.FC<PostDetailPageProps> = ({ user, posts, set
               <button 
                 onClick={handleCollect}
                 className={`p-2 rounded-full bg-gray-50 transition ${post.collected ? 'text-yellow-500' : 'text-gray-400 hover:text-yellow-500'}`}
+                title="收藏"
               >
                 <Bookmark size={20} fill={post.collected ? "currentColor" : "none"} />
               </button>
@@ -149,7 +151,7 @@ export const PostDetailPage: React.FC<PostDetailPageProps> = ({ user, posts, set
       <div className="bg-white rounded-xl shadow-md p-6 md:p-8">
         <h3 className="text-xl font-bold mb-6 flex items-center gap-2">
            <MessageCircle className="text-indigo-600" /> 
-           Comments ({post.comments.length})
+           评论 ({post.comments.length})
         </h3>
 
         {/* Comment Form */}
@@ -159,7 +161,7 @@ export const PostDetailPage: React.FC<PostDetailPageProps> = ({ user, posts, set
              <textarea
                value={commentText}
                onChange={(e) => setCommentText(e.target.value)}
-               placeholder="Write a respectful reply..."
+               placeholder="写下你的评论..."
                className="w-full p-3 pr-12 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none resize-none bg-gray-50 focus:bg-white transition"
                rows={2}
              />
@@ -194,14 +196,14 @@ export const PostDetailPage: React.FC<PostDetailPageProps> = ({ user, posts, set
                            onClick={() => handleDeleteComment(comment.id)}
                            className="text-xs text-red-400 hover:text-red-600 flex items-center gap-1 opacity-0 group-hover:opacity-100 transition"
                         >
-                           <Trash2 size={12} /> Delete Comment
+                           <Trash2 size={12} /> 删除评论
                         </button>
                      </div>
                    )}
                 </div>
              </div>
            ))}
-           {post.comments.length === 0 && <p className="text-center text-gray-400 py-4">No comments yet.</p>}
+           {post.comments.length === 0 && <p className="text-center text-gray-400 py-4">暂无评论，来坐沙发！</p>}
         </div>
       </div>
     </div>

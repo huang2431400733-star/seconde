@@ -51,3 +51,22 @@ export interface ChatSession {
   lastMessage: string;
   messages: ChatMessage[];
 }
+
+// ZenSpace / Dashboard Types
+export interface Todo {
+  id: string;
+  text: string;
+  completed: boolean;
+  createdAt: number;
+}
+
+export interface QuoteData {
+  text: string;
+  author: string;
+}
+
+export enum FilterType {
+  ALL = '全部',
+  ACTIVE = '未完成',
+  COMPLETED = '已完成'
+}

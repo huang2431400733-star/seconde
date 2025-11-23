@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { MessageSquare, Home, User as UserIcon, LogOut } from 'lucide-react';
+import { MessageSquare, LayoutDashboard, Users, LogOut, MessageCircle } from 'lucide-react';
 import { User } from '../types';
 
 interface NavbarProps {
@@ -28,29 +28,27 @@ export const Navbar: React.FC<NavbarProps> = ({ user, onLogout }) => {
 
           <div className="flex items-center space-x-6">
             <Link to="/" className={`flex flex-col items-center text-xs font-medium ${isActive('/')}`}>
-              <Home size={24} className="mb-1" />
-              Forum
+              <LayoutDashboard size={24} className="mb-1" />
+              工作台
+            </Link>
+            <Link to="/forum" className={`flex flex-col items-center text-xs font-medium ${isActive('/forum')}`}>
+              <Users size={24} className="mb-1" />
+              论坛
             </Link>
             <Link to="/chat" className={`flex flex-col items-center text-xs font-medium ${isActive('/chat')}`}>
-              <MessageSquare size={24} className="mb-1" />
-              Chat
+              <MessageCircle size={24} className="mb-1" />
+              消息
             </Link>
             <Link to="/profile" className={`flex flex-col items-center text-xs font-medium ${isActive('/profile')}`}>
-              <UserIcon size={24} className="mb-1" />
-              Profile
+              <div className="relative">
+                 <img src={user.avatar} alt={user.username} className="w-6 h-6 rounded-full border mb-1 object-cover" />
+              </div>
+              我的
             </Link>
             <button onClick={onLogout} className="flex flex-col items-center text-xs font-medium text-gray-500 hover:text-red-600">
               <LogOut size={24} className="mb-1" />
-              Logout
+              退出
             </button>
-          </div>
-          
-          <div className="hidden md:flex items-center gap-3 pl-4 border-l">
-             <img src={user.avatar} alt={user.username} className="w-8 h-8 rounded-full border" />
-             <div className="text-sm">
-               <p className="font-semibold text-gray-800 leading-none">{user.username}</p>
-               <p className="text-xs text-gray-500 leading-none mt-1 uppercase">{user.role}</p>
-             </div>
           </div>
         </div>
       </div>

@@ -39,35 +39,35 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
             <ShieldCheck size={32} />
           </div>
           <h2 className="text-2xl font-bold text-gray-900">
-            {isRegister ? 'Join the Community' : 'Welcome Back'}
+            {isRegister ? '加入社区' : '欢迎回来'}
           </h2>
           <p className="text-gray-500 mt-2">
-            {isRegister ? 'Create your account to start posting.' : 'Sign in to access the forum.'}
+            {isRegister ? '创建账号开始发帖。' : '登录以访问论坛。'}
           </p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-5">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Username</label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">用户名</label>
             <input
               type="text"
               required
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition"
-              placeholder="Try 'admin' for admin features"
+              placeholder="输入 'admin' 可体验管理员功能"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Password</label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">密码</label>
             <input
               type="password"
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition"
-              placeholder="Any password works"
+              placeholder="任意密码即可"
             />
           </div>
 
@@ -77,14 +77,14 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
             className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2.5 rounded-lg transition duration-200 flex items-center justify-center gap-2"
           >
             {isLoading ? (
-              <span>Loading...</span>
+              <span>加载中...</span>
             ) : isRegister ? (
               <>
-                <UserPlus size={18} /> Register
+                <UserPlus size={18} /> 注册
               </>
             ) : (
               <>
-                <LogIn size={18} /> Login
+                <LogIn size={18} /> 登录
               </>
             )}
           </button>
@@ -95,7 +95,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
             onClick={() => setIsRegister(!isRegister)}
             className="text-sm text-indigo-600 hover:text-indigo-800 font-medium"
           >
-            {isRegister ? 'Already have an account? Login' : "Don't have an account? Register"}
+            {isRegister ? '已有账号? 登录' : "还没有账号? 注册"}
           </button>
         </div>
       </div>

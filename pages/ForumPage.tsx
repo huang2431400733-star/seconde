@@ -39,16 +39,16 @@ export const ForumPage: React.FC<ForumPageProps> = ({ user, posts, setPosts }) =
 
   const handleGenerateAI = async () => {
     if (!newTitle && !newContent) {
-      alert("Please enter a topic in the title field to generate content.");
+      alert("请在标题栏输入主题以便AI生成内容。");
       return;
     }
     setIsGenerating(true);
     try {
-      const result = await generatePostContent(newTitle || "Latest technology trends");
+      const result = await generatePostContent(newTitle || "最新的技术趋势");
       setNewTitle(result.title);
       setNewContent(result.content);
     } catch (e) {
-      alert("Failed to generate content. Check console.");
+      alert("生成失败，请稍后重试。");
     } finally {
       setIsGenerating(false);
     }
@@ -90,20 +90,20 @@ export const ForumPage: React.FC<ForumPageProps> = ({ user, posts, setPosts }) =
               onClick={() => setSortBy('latest')}
               className={`px-4 py-1.5 rounded-md text-sm font-medium transition ${sortBy === 'latest' ? 'bg-white text-indigo-600 shadow-sm' : 'text-gray-600 hover:bg-gray-200'}`}
             >
-              <div className="flex items-center gap-2"><Clock size={16} /> Latest</div>
+              <div className="flex items-center gap-2"><Clock size={16} /> 最新</div>
             </button>
             <button
               onClick={() => setSortBy('hottest')}
               className={`px-4 py-1.5 rounded-md text-sm font-medium transition ${sortBy === 'hottest' ? 'bg-white text-indigo-600 shadow-sm' : 'text-gray-600 hover:bg-gray-200'}`}
             >
-              <div className="flex items-center gap-2"><Flame size={16} /> Hottest</div>
+              <div className="flex items-center gap-2"><Flame size={16} /> 热门</div>
             </button>
           </div>
           <button
             onClick={() => setIsModalOpen(true)}
             className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2 transition"
           >
-            <Plus size={18} /> Create Post
+            <Plus size={18} /> 发布新帖
           </button>
         </div>
 
@@ -129,14 +129,14 @@ export const ForumPage: React.FC<ForumPageProps> = ({ user, posts, setPosts }) =
                     </div>
                     <div className="flex gap-4">
                       <span className="flex items-center gap-1"><Flame size={14} /> {post.likes}</span>
-                      <span className="flex items-center gap-1">Comments: {post.comments.length}</span>
+                      <span className="flex items-center gap-1">评论: {post.comments.length}</span>
                     </div>
                  </div>
               </div>
             </Link>
           ))}
           {sortedPosts.length === 0 && (
-             <div className="text-center py-12 text-gray-400">No posts yet. Be the first!</div>
+             <div className="text-center py-12 text-gray-400">暂无帖子，快来抢沙发！</div>
           )}
         </div>
       </div>
@@ -144,20 +144,20 @@ export const ForumPage: React.FC<ForumPageProps> = ({ user, posts, setPosts }) =
       {/* Right Sidebar */}
       <div className="hidden lg:block space-y-6">
         <div className="bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl p-6 text-white shadow-lg">
-          <h2 className="text-xl font-bold mb-2">Welcome, {user.username}!</h2>
-          <p className="text-indigo-100 text-sm mb-4">Ready to share your thoughts with the community?</p>
+          <h2 className="text-xl font-bold mb-2">欢迎, {user.username}!</h2>
+          <p className="text-indigo-100 text-sm mb-4">准备好分享你的想法了吗？</p>
           <div className="text-xs bg-white/20 p-3 rounded-lg">
-            <strong>Tip:</strong> Admins can moderate comments and adjust like counts.
+            <strong>提示:</strong> 管理员可以管理评论和调整点赞数。
           </div>
         </div>
         
         <div className="bg-white rounded-xl shadow-sm p-4">
-          <h3 className="font-bold text-gray-700 mb-3">Community Guidelines</h3>
+          <h3 className="font-bold text-gray-700 mb-3">社区指南</h3>
           <ul className="text-sm text-gray-500 space-y-2 list-disc pl-4">
-             <li>Be respectful to others.</li>
-             <li>No spam or self-promotion.</li>
-             <li>Use the search before posting.</li>
-             <li>Have fun!</li>
+             <li>尊重他人，文明发言。</li>
+             <li>禁止垃圾广告。</li>
+             <li>发帖前请先搜索。</li>
+             <li>享受交流的乐趣！</li>
           </ul>
         </div>
       </div>
@@ -167,14 +167,14 @@ export const ForumPage: React.FC<ForumPageProps> = ({ user, posts, setPosts }) =
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-2xl w-full max-w-2xl shadow-2xl overflow-hidden animate-in fade-in zoom-in duration-200">
             <div className="p-6 border-b flex justify-between items-center">
-              <h2 className="text-xl font-bold">Create New Post</h2>
+              <h2 className="text-xl font-bold">发布新帖子</h2>
               <button onClick={() => setIsModalOpen(false)} className="text-gray-400 hover:text-gray-600">✕</button>
             </div>
             <form onSubmit={handleSubmitPost} className="p-6 space-y-4">
               <div className="flex gap-2">
                 <input
                   type="text"
-                  placeholder="Post Title"
+                  placeholder="帖子标题"
                   value={newTitle}
                   onChange={(e) => setNewTitle(e.target.value)}
                   className="flex-grow px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none"
@@ -187,12 +187,12 @@ export const ForumPage: React.FC<ForumPageProps> = ({ user, posts, setPosts }) =
                   className="px-3 py-2 bg-purple-100 text-purple-700 rounded-lg hover:bg-purple-200 transition flex items-center gap-2 text-sm font-medium"
                 >
                   <Sparkles size={16} />
-                  {isGenerating ? 'Thinking...' : 'AI Assist'}
+                  {isGenerating ? '思考中...' : 'AI 辅助'}
                 </button>
               </div>
               
               <textarea
-                placeholder="What's on your mind?"
+                placeholder="分享你的想法..."
                 value={newContent}
                 onChange={(e) => setNewContent(e.target.value)}
                 className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none h-32 resize-none"
@@ -202,10 +202,10 @@ export const ForumPage: React.FC<ForumPageProps> = ({ user, posts, setPosts }) =
               <div className="flex items-center gap-4">
                 <label className="cursor-pointer flex items-center gap-2 text-sm text-gray-600 hover:text-indigo-600 px-4 py-2 border rounded-lg border-dashed hover:border-indigo-500 transition">
                   <ImageIcon size={18} />
-                  {newImage ? 'Change Image' : 'Add Image'}
+                  {newImage ? '更换图片' : '添加图片'}
                   <input type="file" accept="image/*" className="hidden" onChange={handleImageUpload} />
                 </label>
-                {newImage && <span className="text-xs text-green-600">Image attached</span>}
+                {newImage && <span className="text-xs text-green-600">图片已添加</span>}
               </div>
 
               {newImage && (
@@ -213,8 +213,8 @@ export const ForumPage: React.FC<ForumPageProps> = ({ user, posts, setPosts }) =
               )}
 
               <div className="pt-4 flex justify-end gap-3">
-                 <button type="button" onClick={() => setIsModalOpen(false)} className="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg">Cancel</button>
-                 <button type="submit" className="px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 font-medium">Post</button>
+                 <button type="button" onClick={() => setIsModalOpen(false)} className="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg">取消</button>
+                 <button type="submit" className="px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 font-medium">发布</button>
               </div>
             </form>
           </div>

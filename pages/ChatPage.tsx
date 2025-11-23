@@ -33,7 +33,7 @@ export const ChatPage: React.FC<ChatPageProps> = ({ user, chats, setChats }) => 
         const reply: ChatMessage = {
           id: Date.now().toString(),
           senderId: 'partner',
-          content: `That's interesting! Tell me more about "${lastMsg.content.substring(0, 10)}..."`,
+          content: `这很有趣！告诉我更多关于 "${lastMsg.content.substring(0, 5)}..." 的事情`,
           timestamp: Date.now(),
           isSelf: false
         };
@@ -77,7 +77,7 @@ export const ChatPage: React.FC<ChatPageProps> = ({ user, chats, setChats }) => 
         <div className="p-4 border-b border-gray-100">
           <div className="relative">
             <Search className="absolute left-3 top-2.5 text-gray-400" size={18} />
-            <input type="text" placeholder="Search chats..." className="w-full pl-10 pr-4 py-2 bg-gray-50 rounded-lg text-sm outline-none focus:ring-2 focus:ring-indigo-500" />
+            <input type="text" placeholder="搜索聊天..." className="w-full pl-10 pr-4 py-2 bg-gray-50 rounded-lg text-sm outline-none focus:ring-2 focus:ring-indigo-500" />
           </div>
         </div>
         <div className="overflow-y-auto flex-1">
@@ -94,7 +94,7 @@ export const ChatPage: React.FC<ChatPageProps> = ({ user, chats, setChats }) => 
               <div className="flex-1 min-w-0">
                 <div className="flex justify-between mb-1">
                   <h4 className="font-semibold text-gray-900 text-sm">{chat.partnerName}</h4>
-                  <span className="text-xs text-gray-400">12:30 PM</span>
+                  <span className="text-xs text-gray-400">12:30</span>
                 </div>
                 <p className="text-xs text-gray-500 truncate">{chat.lastMessage}</p>
               </div>
@@ -114,7 +114,7 @@ export const ChatPage: React.FC<ChatPageProps> = ({ user, chats, setChats }) => 
                  <div>
                    <h3 className="font-bold text-gray-900">{activeChat.partnerName}</h3>
                    <div className="flex items-center gap-1 text-xs text-green-600">
-                     <Circle size={8} fill="currentColor" /> Online
+                     <Circle size={8} fill="currentColor" /> 在线
                    </div>
                  </div>
               </div>
@@ -142,7 +142,7 @@ export const ChatPage: React.FC<ChatPageProps> = ({ user, chats, setChats }) => 
                    type="text" 
                    value={messageText}
                    onChange={(e) => setMessageText(e.target.value)}
-                   placeholder="Type a message..."
+                   placeholder="输入消息..."
                    className="flex-1 px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500"
                  />
                  <button 
@@ -158,7 +158,7 @@ export const ChatPage: React.FC<ChatPageProps> = ({ user, chats, setChats }) => 
         ) : (
           <div className="flex-1 flex items-center justify-center text-gray-400 flex-col gap-4">
              <div className="bg-gray-100 p-6 rounded-full"><Search size={40} /></div>
-             <p>Select a conversation to start chatting</p>
+             <p>选择一个对话开始聊天</p>
           </div>
         )}
       </div>
